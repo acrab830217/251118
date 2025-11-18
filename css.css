@@ -1,0 +1,502 @@
+/* ===== 全站基礎樣式 ===== */
+:root {
+  --bg-color: #f6f7fb;
+  --card-bg: #ffffff;
+  --primary: #6c8ef5;
+  --primary-soft: #e3e9ff;
+  --accent: #f7c5c5;
+  --text-main: #333333;
+  --text-muted: #777777;
+  --border-radius-lg: 18px;
+  --shadow-soft: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+* {
+  box-sizing: border-box;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+}
+
+body {
+  background: radial-gradient(circle at top left, #fce4ec 0, transparent 55%),
+              radial-gradient(circle at bottom right, #e3f2fd 0, transparent 55%),
+              var(--bg-color);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--text-main);
+}
+
+.app-container {
+  width: 100%;
+  max-width: 900px;
+  padding: 20px;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 24px;
+  box-shadow: var(--shadow-soft);
+  padding: 24px;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 24px;
+
+  /* 進場淡入動畫 */
+  opacity: 0;
+  transform: translateY(16px);
+  animation: fadeInUp 0.7s ease-out forwards;
+}
+
+/* 小螢幕改成一欄 */
+@media (max-width: 768px) {
+  .card {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header {
+  margin-bottom: 16px;
+}
+
+.title-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.paw-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--primary-soft);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+}
+
+h1 {
+  font-size: 20px;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+/* ===== 表單區 ===== */
+.section-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.form-group {
+  margin-bottom: 14px;
+}
+
+label {
+  font-size: 13px;
+  color: var(--text-muted);
+  display: block;
+  margin-bottom: 4px;
+}
+
+input[type="text"],
+input[type="date"] {
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid #dde2f2;
+  font-size: 14px;
+  transition: border-color 0.2s, box-shadow 0.2s, background-color 0.2s;
+  background-color: #f9f9ff;
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(108, 142, 245, 0.15);
+  background-color: #ffffff;
+}
+
+.btn {
+  width: 100%;
+  padding: 11px 16px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #6c8ef5, #a685f5);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 6px;
+  box-shadow: 0 8px 18px rgba(108, 142, 245, 0.35);
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(108, 142, 245, 0.4);
+}
+
+.btn:active {
+  transform: translateY(0);
+  box-shadow: 0 6px 14px rgba(108, 142, 245, 0.3);
+}
+
+.btn-secondary {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: none;
+  background: #ffffff;
+  color: #4b63b5;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+  box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+  transition: transform 0.08s ease, box-shadow 0.08s ease, background-color 0.08s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #f4f6ff;
+  transform: translateY(-1px);
+  box-shadow: 0 9px 20px rgba(15, 23, 42, 0.16);
+}
+
+.btn-secondary:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.12);
+}
+
+.hint {
+  font-size: 11px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+.error {
+  color: #e57373;
+  font-size: 12px;
+  margin-top: 6px;
+}
+
+/* ===== 結果區 ===== */
+.result-panel {
+  background: linear-gradient(145deg, #fefefe, #f8f2ff);
+  border-radius: 20px;
+  padding: 16px 16px 18px;
+  border: 1px solid #f0e5ff;
+  position: relative;
+  overflow: hidden;
+}
+
+.result-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+  gap: 12px;
+}
+
+.dog-name {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--primary-soft);
+  font-size: 11px;
+  color: #4b63b5;
+  white-space: nowrap;
+}
+
+.age-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+  flex-wrap: wrap;
+}
+
+.age-card {
+  flex: 1 1 140px;
+  background: #ffffffd9;
+  border-radius: 16px;
+  padding: 10px 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+.age-label {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.age-value {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.age-sub {
+  font-size: 12px;
+  color: var(--text-muted);
+}
+
+.note {
+  margin-top: 10px;
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.bg-decor {
+  position: absolute;
+  right: -20px;
+  bottom: -20px;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, #ffe0e0, transparent 60%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.empty-state {
+  font-size: 12px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ===== 生命階段進度條 ===== */
+.life-stage {
+  margin-top: 12px;
+}
+
+.life-stage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.life-stage-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: #4b5563;
+}
+
+.life-stage-text {
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: right;
+  flex: 1;
+}
+
+.life-progress {
+  margin-top: 4px;
+}
+
+.life-progress-bar {
+  width: 100%;
+  height: 10px;
+  border-radius: 999px;
+  background: #e5e7f5;
+  overflow: hidden;
+  position: relative;
+}
+
+.life-progress-fill {
+  height: 100%;
+  width: 0;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #6c8ef5, #f7a8d9);
+  transition: width 0.4s ease-out;
+}
+
+.life-progress-scale {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ===== 年齡對照表 ===== */
+.age-chart {
+  margin-top: 14px;
+  background: #ffffffd9;
+  border-radius: 16px;
+  padding: 10px 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.02);
+}
+
+.age-chart-title {
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #4b5563;
+}
+
+.age-chart table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11px;
+}
+
+.age-chart th,
+.age-chart td {
+  padding: 4px 2px;
+  text-align: center;
+  border-bottom: 1px solid #ecebf7;
+  white-space: nowrap;
+}
+
+.age-chart th {
+  background: #f5f4ff;
+  font-weight: 600;
+}
+
+.age-chart tr:last-child td {
+  border-bottom: none;
+}
+
+.age-chart-note {
+  font-size: 10px;
+  color: var(--text-muted);
+  margin-top: 4px;
+}
+
+/* ===== 彈跳視窗（Modal） ===== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.35);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal-backdrop.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.modal-dialog {
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 18px 18px 16px;
+  max-width: 320px;
+  width: 90%;
+  box-shadow: 0 18px 40px rgba(15, 23, 42, 0.35);
+  position: relative;
+  transform-origin: center;
+  animation: popIn 0.35s cubic-bezier(0.22, 0.8, 0.3, 1.2);
+}
+
+@keyframes popIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px) scale(0.9);
+  }
+  60% {
+    opacity: 1;
+    transform: translateY(-4px) scale(1.03);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-close {
+  position: absolute;
+  top: 8px;
+  right: 10px;
+  border: none;
+  background: transparent;
+  font-size: 18px;
+  cursor: pointer;
+  color: #9ca3af;
+  padding: 0;
+  line-height: 1;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.modal-title span.emoji {
+  font-size: 22px;
+}
+
+.modal-text {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 4px;
+}
+
+.modal-subtext {
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+/* ===== 狗狗圖片區塊 ===== */
+.dog-photo-wrapper {
+  margin-top: 14px;
+  border-radius: 16px;
+  overflow: hidden;
+  background: #f3f4ff;
+  box-shadow: 0 6px 14px rgba(15, 23, 42, 0.12);
+}
+
+.dog-photo-wrapper img {
+  display: block;
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.dog-photo-credit {
+  font-size: 10px;
+  color: var(--text-muted);
+  padding: 4px 8px 6px;
+  text-align: right;
+}

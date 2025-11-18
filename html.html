@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>狗狗年齡換算成人類年齡</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <!-- 彈跳視窗：進站提示 -->
+  <div class="modal-backdrop" id="introModal" aria-hidden="true">
+    <div class="modal-dialog" role="dialog" aria-modal="true">
+      <button class="modal-close" type="button" aria-label="關閉" id="modalCloseBtn">×</button>
+      <div class="modal-title">
+        <span class="emoji">🐶</span>
+        <span>你知道你狗狗幾歲嗎？</span>
+      </div>
+      <div class="modal-text">
+        實際年齡跟「人類年齡」常常對不上，輸入生日，幫你算出牠現在大概幾歲的人生階段。
+      </div>
+      <div class="modal-subtext">
+        這只是參考，不會取代獸醫專業建議喔。
+      </div>
+      <button class="btn-secondary" type="button" id="modalStartBtn">開始計算</button>
+    </div>
+  </div>
+
+  <div class="app-container">
+    <div class="card">
+      <!-- 左側：輸入區 -->
+      <div>
+        <div class="header">
+          <div class="title-row">
+            <div class="paw-icon">🐾</div>
+            <h1>狗狗年齡換算成人類年齡</h1>
+          </div>
+          <div class="subtitle">
+            輸入狗狗的名字和出生日期，幫你算出牠現在幾歲，以及相當於人類幾歲。
+          </div>
+        </div>
+
+        <div class="form">
+          <div class="section-title">輸入資訊</div>
+
+          <div class="form-group">
+            <label for="dogName">狗狗名字</label>
+            <input id="dogName" type="text" placeholder="例如：球球、MoMo、阿福...">
+          </div>
+
+          <div class="form-group">
+            <label for="birthDate">出生日期</label>
+            <input id="birthDate" type="date" max="">
+            <div class="hint">請選擇實際生日，系統會自動換算歲數。</div>
+          </div>
+
+          <button class="btn" id="calcBtn" type="button">計算狗狗年齡</button>
+          <div class="error" id="errorMsg" style="display:none;"></div>
+
+          <!-- 免費圖庫狗狗照片（placedog.net） -->
+          <div class="dog-photo-wrapper">
+            <img src="https://placedog.net/600/260"
+                 alt="可愛狗狗照片（來自 placedog.net 免費圖庫）">
+            <div class="dog-photo-credit">
+              Photo from
+              <a href="https://placedog.net/" target="_blank" rel="noopener noreferrer">placedog.net</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 右側：結果區 -->
+      <div>
+        <div class="result-panel">
+          <div class="bg-decor"></div>
+          <div class="result-header">
+            <div>
+              <div class="dog-name" id="displayName">還沒輸入狗狗名字</div>
+              <div class="empty-state" id="displayHint">輸入左邊資訊後，這裡會顯示結果</div>
+            </div>
+            <div class="badge">即時換算</div>
+          </div>
+
+          <div class="age-row" id="ageRow" style="display:none;">
+            <div class="age-card">
+              <div class="age-label">狗狗實際年齡</div>
+              <div class="age-value" id="dogAgeText">–</div>
+              <div class="age-sub" id="dogAgeDetail"></div>
+            </div>
+            <div class="age-card">
+              <div class="age-label">換算人類年齡</div>
+              <div class="age-value" id="humanAgeText">– 歲</div>
+              <div class="age-sub" id="humanAgeDetail">依狗狗年齡公式換算</div>
+            </div>
+          </div>
+
+          <!-- 生命階段進度條 -->
+          <div class="life-stage" id="lifeStageBlock" style="display:none;">
+            <div class="life-stage-header">
+              <span class="life-stage-label">生命階段</span>
+              <span class="life-stage-text" id="lifeStageText">—</span>
+            </div>
+            <div class="life-progress">
+              <div class="life-progress-bar">
+                <div class="life-progress-fill" id="lifeProgressFill"></div>
+              </div>
+              <div class="life-progress-scale">
+                <span>幼犬</span>
+                <span>成年</span>
+                <span>熟齡</span>
+                <span>高齡</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="note">
+            計算公式（本工具）：X 為狗狗年齡（年）<br>
+            若 X = 1 → 15 歲；X = 2 → 24 歲；X &gt; 2 → 24 + 4 × (X − 2)
+          </div>
+
+          <!-- 參考年齡對照表（依 AKC/AVMA 指南） -->
+          <div class="age-chart">
+            <div class="age-chart-title">狗狗 vs 人類年齡對照（參考表）</div>
+            <table aria-label="狗狗與人類年齡對照表">
+              <thead>
+                <tr>
+                  <th>狗狗年齡</th>
+                  <th>人類年齡（約）</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr><td>1 歲</td><td>15 歲</td></tr>
+                <tr><td>2 歲</td><td>24 歲</td></tr>
+                <tr><td>3 歲</td><td>29 歲</td></tr>
+                <tr><td>4 歲</td><td>34 歲</td></tr>
+                <tr><td>5 歲</td><td>39 歲</td></tr>
+                <tr><td>6 歲</td><td>44 歲</td></tr>
+                <tr><td>7 歲</td><td>49 歲</td></tr>
+                <tr><td>8 歲</td><td>54 歲</td></tr>
+                <tr><td>9 歲</td><td>59 歲</td></tr>
+                <tr><td>10 歲</td><td>64 歲</td></tr>
+                <tr><td>11 歲</td><td>69 歲</td></tr>
+                <tr><td>12 歲</td><td>74 歲</td></tr>
+                <tr><td>13 歲</td><td>79 歲</td></tr>
+                <tr><td>14 歲</td><td>84 歲</td></tr>
+                <tr><td>15 歲</td><td>89 歲</td></tr>
+                <tr><td>16 歲</td><td>94 歲</td></tr>
+              </tbody>
+            </table>
+            <div class="age-chart-note">
+              參考自
+              <a href="https://www.akc.org/expert-advice/health/how-to-calculate-dog-years-to-human-years/?utm_source=chatgpt.com"
+                 target="_blank" rel="noopener noreferrer">
+                AKC
+              </a>
+              整理之 AVMA 指南：第 1 年約 15 歲，第 2 年約 24 歲，之後每年約 +5 歲，實際仍會因體型與品種而不同。
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
